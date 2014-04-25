@@ -34,7 +34,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room north, south, east, west, central;
+        Room north, south, east, west, central, southeast;
 
         // create the rooms
         north = new Room("north of the central room");
@@ -42,13 +42,15 @@ public class Game
         east = new Room("east of the central room");
         west = new Room("west of the central room");
         central = new Room("in central room");
+        southeast = new Room("in southeast of south room");
        
         // initialise room exits
-        north.setExits(null,null,central,null);
-        south.setExits(central,null,null,null);
-        east.setExits(null,null,null,central);
-        west.setExits(null,central,null,null);
-        central.setExits(north,east,south,west);
+        north.setExits(null,null,central,null,null);
+        south.setExits(central,null,null,null,southeast);
+        east.setExits(null,null,null,central,null);
+        west.setExits(null,central,null,null,null);
+        central.setExits(north,east,south,west,null);
+        southeast.setExits(null,null,null,null,null);
 
         currentRoom = central;  // start game outside
     }
