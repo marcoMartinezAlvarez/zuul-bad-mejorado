@@ -42,7 +42,7 @@ public class Game
         east = new Room("east of the central room");
         west = new Room("west of the central room");
         central = new Room("in central room");
-
+       
         // initialise room exits
         north.setExits(null,null,central,null);
         south.setExits(central,null,null,null);
@@ -81,8 +81,6 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
         printLocationInfo();
     }
 
@@ -164,8 +162,6 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
             printLocationInfo();
         }
     }
@@ -187,7 +183,8 @@ public class Game
     }
 
     private void printLocationInfo(){
-
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.print("Exits: ");
         if(currentRoom.northExit != null) {
             System.out.print("north ");
         }
