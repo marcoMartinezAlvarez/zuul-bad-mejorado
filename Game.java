@@ -44,11 +44,12 @@ public class Game
         central = new Room("in central room");
         
         // initialise room exits
-        north.setExits(null,null,central,null,null);
-        south.setExits(central,null,null,null,null);
-        east.setExits(null,null,null,central,null);
-        west.setExits(null,central,null,null,south);
-        central.setExits(north,east,south,west,null);
+        north.setExits(null,null,central,null,null,null);
+        south.setExits(central,null,null,null,null,west);
+        east.setExits(null,null,null,central,null,null);
+        west.setExits(null,central,null,null,south,null);
+        central.setExits(north,east,south,west,null,null);
+        
 
         currentRoom = central;  // start game outside
     }
