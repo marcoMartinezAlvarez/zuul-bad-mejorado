@@ -44,13 +44,23 @@ public class Game
         central = new Room("in central room");
         
         // initialise room exits
-        north.setExits(null,null,central,null,null,null);
-        south.setExits(central,null,null,null,null,west);
-        east.setExits(null,null,null,central,null,null);
-        west.setExits(null,central,null,null,south,null);
-        central.setExits(north,east,south,west,null,null);
         
-
+        
+        north.setExit("bajando las escaleras", central);
+        
+        east.setExit("saltas el muro", central);
+        east.setExit("bajas por el camino", south);
+        
+        south.setExit("vas al centro", central);
+        south.setExit("subes el camino", east);
+        
+        west.setExit("pasa por el puente", central);
+        
+        central.setExit("sube las escaleras", north);
+        central.setExit("bajas a la zona sur", south);
+        central.setExit("esquivas el muro", east);
+        central.setExit("salta el rio", west);
+                
         currentRoom = central;  // start game outside
     }
 
