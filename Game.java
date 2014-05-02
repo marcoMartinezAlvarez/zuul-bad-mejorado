@@ -46,20 +46,20 @@ public class Game
         // initialise room exits
         
         
-        north.setExit("bajando las escaleras", central);
+        north.setExit("bajandoLasEscaleras ", central);
         
-        east.setExit("saltas el muro", central);
-        east.setExit("bajas por el camino", south);
+        east.setExit("saltasElMuro ", central);
+        east.setExit("bajas por el camino ", south);
         
-        south.setExit("vas al centro", central);
-        south.setExit("subes el camino", east);
+        south.setExit("vasAlCentro ", central);
+        south.setExit("subesElCamino ", east);
         
-        west.setExit("pasa por el puente", central);
+        west.setExit("pasaPorElPuente ", central);
         
-        central.setExit("sube las escaleras", north);
-        central.setExit("bajas a la zona sur", south);
-        central.setExit("esquivas el muro", east);
-        central.setExit("salta el rio", west);
+        central.setExit("subeLasEscaleras ", north);
+        central.setExit("bajasALaZonaSur ", south);
+        central.setExit("esquivasElMuro ", east);
+        central.setExit("saltaElRio ", west);
                 
         currentRoom = central;  // start game outside
     }
@@ -151,7 +151,7 @@ public class Game
             return;
         }
 
-
+        String a = command.getSecondWord();
         Room nextRoom = currentRoom.getExit(command.getSecondWord()); 
         
         if (nextRoom == null) {
@@ -180,7 +180,7 @@ public class Game
     }
 
     private void printLocationInfo(){
-        System.out.println("You are " + currentRoom.getDescription());
+        System.out.println("You are " + currentRoom.getLongDescription());
         System.out.println(currentRoom.getExitString());
         System.out.println();
     }
