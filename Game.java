@@ -37,11 +37,11 @@ public class Game
         Room north, south, east, west, central, southeast;
 
         // create the rooms
-        north = new Room("north of the central room");
-        south = new Room("south of the central room");
-        east = new Room("east of the central room");
-        west = new Room("west of the central room");
-        central = new Room("in central room");
+        north = new Room("north of the central room", "tronco", 12.4);
+        south = new Room("south of the central room", "taza", 0.4);
+        east = new Room("east of the central room", "roca", 21.2);
+        west = new Room("west of the central room", "mesa", 3);
+        central = new Room("in central room", "cuadro", 7);
         
         // initialise room exits
         
@@ -139,7 +139,7 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        parser.returnCommand();
+        parser.printCommand();
     }
 
     /** 
@@ -181,9 +181,10 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-
+    
     private void printLocationInfo(){
         System.out.println("You are " + currentRoom.getLongDescription());
         System.out.println();
+        System.out.println("En esta sala se encuentra el objeto: " + currentRoom.getItem() + "\n el cual pesa: " + currentRoom.getPeso() + "Kg");
     }
 }
