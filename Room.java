@@ -86,7 +86,7 @@ public class Room
             itemDescription = "En esta sala se encuentra el objeto: : " + objeto.getItem() + " \n el cual pesa: " + objeto.getPeso() + "Kg";
         }
 
-        return  itemDescription + getDescription() + ".\n"  + getExitString();
+        return  itemDescription + ".\n" + "Yo are in " +  getDescription() + ".\n"  + getExitString();
 
     }
 }

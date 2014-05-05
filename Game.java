@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-
+    private Room previousRoom;
     /**
      * Create the game and initialise its internal map.
      */
@@ -58,20 +58,20 @@ public class Game
         central.setExit("bajasALaZonaSur", south);
         central.setExit("esquivasElMuro", east);
         central.setExit("saltaElRio", west);
-        
+
         //objetos en las salas
         central.addItem("roca", 12.4);
         central.addItem("ordenador", 6.2);
         central.addItem("ventana", 8.9);
-        
+
         south.addItem("mochila", 3.2);
-        
+
         west.addItem("tronco", 14);
         west.addItem("extintor", 9);
-        
+
         east.addItem("botella", 2);
         east.addItem("armario", 36.2);
-        
+
         currentRoom = central;  // start game outside
     }
 
@@ -125,6 +125,7 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
+            previousRoom = currentRoom;
             goRoom(command);
         }
         else if (commandWord.equals("quit")) {
@@ -136,7 +137,14 @@ public class Game
         else if (commandWord.equals("eat")) {
             System.out.println("You have eaten now and you are not hungry any more");
         }
-
+        else if (commandWord.equals("back")) {
+            if(previousRoom == null){
+                System.out.println("you can not go back because there is no previous room");
+            }else{
+                currentRoom = previousRoom;
+                printLocationInfo();
+            }
+        }
         return wantToQuit;
     }
 
@@ -197,7 +205,7 @@ public class Game
     }
 
     private void printLocationInfo(){
-        System.out.println("Estás en la sala " + currentRoom.getLongDescription());
+        System.out.println("" + currentRoom.getLongDescription());
         System.out.println();
         //System.out.println("En esta sala se encuentra el objeto: " + currentRoom.getItem() + "\n el cual pesa: " + currentRoom.getPeso() + "Kg");
 
