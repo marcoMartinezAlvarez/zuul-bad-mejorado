@@ -37,30 +37,41 @@ public class Game
         Room north, south, east, west, central, southeast;
 
         // create the rooms
-        north = new Room("north of the central room", "tronco", 12.4);
-        south = new Room("south of the central room", "taza", 0.4);
-        east = new Room("east of the central room", "roca", 21.2);
-        west = new Room("west of the central room", "mesa", 3);
-        central = new Room("in central room", "cuadro", 7);
-        
+        north = new Room("north of the central room");
+        south = new Room("south of the central room");
+        east = new Room("east of the central room");
+        west = new Room("west of the central room");
+        central = new Room("in central room");
+
         // initialise room exits
+
+        north.setExit("bajandoLasEscaleras", central);
+        east.setExit("saltasElMuro", central);
+        east.setExit("bajasPorElCamino", south);
+
+        south.setExit("vasAlCentro", central);
+        south.setExit("subesElCamino", east);
+
+        west.setExit("pasaPorElPuente", central);
+
+        central.setExit("subeLasEscaleras", north);
+        central.setExit("bajasALaZonaSur", south);
+        central.setExit("esquivasElMuro", east);
+        central.setExit("saltaElRio", west);
         
+        //objetos en las salas
+        central.addItem("roca", 12.4);
+        central.addItem("ordenador", 6.2);
+        central.addItem("ventana", 8.9);
         
-        north.setExit("bajandoLasEscaleras ", central);
+        south.addItem("mochila", 3.2);
         
-        east.setExit("saltasElMuro ", central);
-        east.setExit("bajas por el camino ", south);
+        west.addItem("tronco", 14);
+        west.addItem("extintor", 9);
         
-        south.setExit("vasAlCentro ", central);
-        south.setExit("subesElCamino ", east);
+        east.addItem("botella", 2);
+        east.addItem("armario", 36.2);
         
-        west.setExit("pasaPorElPuente ", central);
-        
-        central.setExit("subeLasEscaleras ", north);
-        central.setExit("bajasALaZonaSur ", south);
-        central.setExit("esquivasElMuro ", east);
-        central.setExit("saltaElRio ", west);
-                
         currentRoom = central;  // start game outside
     }
 
@@ -159,7 +170,7 @@ public class Game
 
         String a = command.getSecondWord();
         Room nextRoom = currentRoom.getExit(command.getSecondWord()); 
-        
+
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
@@ -184,10 +195,11 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
+
     private void printLocationInfo(){
-        System.out.println("You are " + currentRoom.getLongDescription());
+        System.out.println("Estás en la sala " + currentRoom.getLongDescription());
         System.out.println();
-        System.out.println("En esta sala se encuentra el objeto: " + currentRoom.getItem() + "\n el cual pesa: " + currentRoom.getPeso() + "Kg");
+        //System.out.println("En esta sala se encuentra el objeto: " + currentRoom.getItem() + "\n el cual pesa: " + currentRoom.getPeso() + "Kg");
+
     }
 }

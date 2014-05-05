@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Set;
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -18,20 +19,18 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> salidas;
-    private String item;
-    private double peso;
+    private ArrayList<Item> objetos;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String item, double peso) 
+    public Room(String description) 
     {
         this.description = description;
         salidas = new HashMap<>();
-        this.item = item;
-        this.peso = peso;
+        objetos = new ArrayList<>();
     }
 
     /**
@@ -42,15 +41,7 @@ public class Room
     public void setExit(String direction, Room neighbor){
         salidas.put(direction, neighbor);
     }
-    
-    public String getItem(){
-        return item;
-    }
-    
-    public double getPeso(){
-        return peso;
-    }
-    
+
     /**
      * @return The description of the room.
      */
@@ -79,6 +70,10 @@ public class Room
         return posiblesSalidas;
     }
 
+    public void addItem(String item, double peso){
+        objetos.add(new Item(item, peso));
+    }
+
     /**
      * Return a long description of this room, of the form:
      *     You are in the 'name of room'
@@ -86,7 +81,13 @@ public class Room
      * @return A description of the room, including exits.
      */
     public String getLongDescription(){       
-        return "You are in the " + getDescription() + ".\n"  + getExitString();
+        String itemDescription = null;
+        for(Item objeto : objetos){            
+            itemDescription = "En esta sala se encuentra el objeto: : " + objeto.getItem() + " \n el cual pesa: " + objeto.getPeso() + "Kg";
+        }
+
+        return  itemDescription + getDescription() + ".\n"  + getExitString();
+
     }
 }
 
