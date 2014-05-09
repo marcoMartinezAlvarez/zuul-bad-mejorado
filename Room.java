@@ -62,10 +62,10 @@ public class Room
      */
     public String getExitString(){
         Set<String> direccionesPosibles = salidas.keySet();
-        String posiblesSalidas = "Exits :";
+        String posiblesSalidas = "Exits: ";
 
         for(String direccion: direccionesPosibles){
-            posiblesSalidas += direccion + "";
+            posiblesSalidas += direccion + " ";
         }    
         return posiblesSalidas;
     }
@@ -81,9 +81,9 @@ public class Room
      * @return A description of the room, including exits.
      */
     public String getLongDescription(){       
-        String itemDescription = null;
+        String itemDescription = "";
         for(Item objeto : objetos){            
-            itemDescription = "En esta sala se encuentra el objeto: : " + objeto.getItem() + " \n el cual pesa: " + objeto.getPeso() + "Kg";
+            itemDescription += "En esta sala se encuentra el objeto: : " + objeto.getItem() + " el cual pesa: " + objeto.getPeso() + "Kg \n";
         }
 
         return  itemDescription + ".\n" + "Yo are in " +  getDescription() + ".\n"  + getExitString();
