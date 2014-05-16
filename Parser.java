@@ -63,7 +63,7 @@ public class Parser
         }
     }
 
-    public void printCommand(){
+    public void showCommands(){
          commands.showAll();
     }
 }

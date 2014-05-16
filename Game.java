@@ -20,13 +20,73 @@ public class Game
 {
     private Parser parser;
     private Player player;
+    private int siguienteIDAAsignar;
+    
+
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
-        parser = new Parser();
         player = new Player();
+        createRooms();
+        parser = new Parser();
+    }
+
+    /**
+     * Create all the rooms and link their exits together.
+     */
+    private void createRooms()
+    {
+        Room galicia, leon, castilla, portugal, aragon, granada;
+
+        // create the rooms
+        galicia = new Room("el reino de Galicia");
+        leon = new Room("el reino de León");
+        castilla = new Room("el reino de Castilla");
+        aragon = new Room("el reino de Aragon");
+        granada = new Room("el reino de Granada");
+        portugal = new Room("el reino de Portugal");                          
+
+        // initialise room exits
+        galicia.setExit("east", leon);
+        galicia.setExit("south", portugal);
+        galicia.setExit("southEast", castilla);
+
+        leon.setExit("south", castilla);
+        leon.setExit("west", galicia);
+
+        castilla.setExit("north", leon);
+        castilla.setExit("east", aragon);
+        castilla.setExit("south", granada);
+        castilla.setExit("west", portugal);
+        castilla.setExit("northWest", galicia);
+
+        granada.setExit("north", castilla);
+        granada.setExit("jumpingNorthEast", aragon);
+
+        aragon.setExit("west", castilla);
+
+        portugal.setExit("north", galicia);
+        portugal.setExit("east", castilla);
+        
+        //define the items
+        galicia.addItem(new Item("Una espada gaelica", 3.5, true));
+        galicia.addItem(new Item("Un tonel de vino", 10.2, false));
+        
+        leon.addItem(new Item("El Santo Grial", 1.4, true));
+        
+        castilla.addItem(new Item("Un cuchillo afilado", 0.5, true));
+        castilla.addItem(new Item("Un cofre de oro", 3.0, true));
+        castilla.addItem(new Item("Un baul de madera", 24.8, true));
+        
+        aragon.addItem(new Item("Una carreta", 35.5, false));
+        
+        granada.addItem(new Item("Una pocima contra el dolor de cabeza", 0.6, true));
+        
+        portugal.addItem(new Item("Una armadura", 20.2, false));        
+    
+        player.setCurrentRoom(leon);
     }
 
     /**
@@ -34,7 +94,6 @@ public class Game
      */
     public void play() 
     {            
-        createRooms();
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -46,52 +105,6 @@ public class Game
             finished = processCommand(command);
         }
         System.out.println("Thank you for playing.  Good bye.");
-    }
-
-    /**
-     * Create all the rooms and link their exits together.
-     */
-    private void createRooms()
-    {
-        Room north, south, east, west, central, southeast;
-
-        // create the rooms
-        north = new Room("north of the central room");
-        south = new Room("south of the central room");
-        east = new Room("east of the central room");
-        west = new Room("west of the central room");
-        central = new Room("in central room");
-
-        // initialise room exits
-
-        north.setExit("bajandoLasEscaleras", central);
-        east.setExit("saltasElMuro", central);
-        east.setExit("bajasPorElCamino", south);
-
-        south.setExit("vasAlCentro", central);
-        south.setExit("subesElCamino", east);
-
-        west.setExit("pasaPorElPuente", central);
-
-        central.setExit("subeLasEscaleras", north);
-        central.setExit("bajasALaZonaSur", south);
-        central.setExit("esquivasElMuro", east);
-        central.setExit("saltaElRio", west);
-
-        //objetos en las salas
-        central.addItem("roca", 12.4);
-        central.addItem("ordenador", 6.2);
-        central.addItem("ventana", 8.9);
-
-        south.addItem("mochila", 3.2);
-
-        west.addItem("tronco", 14);
-        west.addItem("extintor", 9);
-        
-        east.addItem("botella", 2);
-        east.addItem("armario", 36.2);
-        
-        player.setPlayerRoom(central);
     }
 
     /**
@@ -128,19 +141,27 @@ public class Game
         else if (commandWord.equals("go")) {
             player.goRoom(command);
         }
+        else if(commandWord.equals("look")) {
+            player.look();
+        }
+        else if(commandWord.equals("eat")) {
+            player.eat();
+        }
+        else if(commandWord.equals("back")) {
+            player.back();
+        }
+        else if (commandWord.equals("items")){
+            player.items();
+        }
+        else if (commandWord.equals("take")){
+            player.take(command);
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
-        else if (commandWord.equals("look")) {
-            player.printLocationInfo();
-        }
-        else if (commandWord.equals("eat")) {
-            System.out.println("You have eaten now and you are not hungry any more");
-        }
-        else if (commandWord.equals("back")) {
-            player.goBack();
-            player.printLocationInfo();
-        }
+	else if (commandWord.equals("drop")){
+	    player.drop(command);
+	}
         return wantToQuit;
     }
 
@@ -157,8 +178,10 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        parser.printCommand();
+        parser.showCommands();
     }
+
+    
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -175,4 +198,8 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
+
 }
+
+
+

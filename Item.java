@@ -1,32 +1,72 @@
-
 /**
- * Write a description of class Item here.
+ * An item contained in a room
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Miguel Bayon
+ * @version 1.0
  */
 public class Item
 {
-    // instance variables - replace the example below with your own
-    private String item;
-    private double peso;
-
+    private String description;
+    private double weight;
+    private String id;
+    private static int idSiguiente = 1; 
+    private boolean canBeTaken;
+    
     /**
      * Constructor for objects of class Item
+     * 
+     * @param description The item's description
+     * @param weight The item's weight
      */
-    public Item(String item, double peso)
+    public Item(String description, double weight, boolean canBeTaken)
     {
-        this.item = item;
-        this.peso = peso;
-    }
-
-    //Método que nos devolvera el item.
-    public String getItem(){
-        return item;
+        this.id = "" + idSiguiente;
+        this.idSiguiente++;
+        
+        this.description = description;
+        this.weight = weight;
+        this.canBeTaken = canBeTaken;
     }
     
-    //Método que nos devolvera el peso.
-    public double getPeso(){
-        return peso;
+    /**
+     * Get the long description of item
+     * 
+     * @return     The long description of item
+     */
+    public String getLongDescription()
+    {
+        return "ID " + id + ": " + description + " (" + weight + " kg.)";
     }
+    
+    
+    /**
+     * Devuelve el id del objeto
+     * 
+     * @return el id del objeto
+     */
+    public String getId()
+    {
+        return id;
+    }
+    
+    /**
+     * Get the item's weight
+     * 
+     * @return weight the item's weight in kg
+     */
+    public double getWeight()  
+    {
+    	return weight;
+    }  
+    
+    /**
+     * Return if the item can be taken
+     * 
+     * @return true if the item can be taken, false otherwise
+     */
+    public boolean canBeTaken() {
+     	return canBeTaken;
+    }  
 }
+
+
