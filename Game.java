@@ -48,32 +48,45 @@ public class Game
 
         // initialise room exits
 
-        north.setExit("bajandoLasEscaleras", central);
-        east.setExit("saltasElMuro", central);
-        east.setExit("bajasPorElCamino", south);
+        north.setExit("salaOrdenadores", central);
+        
+        east.setExit("salaOrdenadores", central);
+        east.setExit("salaDispositivos", south);
 
-        south.setExit("vasAlCentro", central);
-        south.setExit("subesElCamino", east);
+        south.setExit("salaOrdenadores", central);
+        south.setExit("salaDispositivos", east);
 
-        west.setExit("pasaPorElPuente", central);
+        west.setExit("salaVisual", central);
 
-        central.setExit("subeLasEscaleras", north);
-        central.setExit("bajasALaZonaSur", south);
-        central.setExit("esquivasElMuro", east);
-        central.setExit("saltaElRio", west);
+        central.setExit("salaInternet", north);
+        central.setExit("salaDispositivos", south);
+        central.setExit("salaSonido", east);
+        central.setExit("salaVisual", west);
 
         //objetos en las salas
-        central.addItem(new Item("roca", 12.4,true));
-        central.addItem(new Item("ordenador", 6.2,true));
-        central.addItem(new Item("ventana", 8.9,false));
+        central.addItem(new Item("impresora", 6.4,true,true));
+        central.addItem(new Item("ordenador", 18.2,true,true));
+        central.addItem(new Item("pantalla", 5.9,false,true));
+        central.addItem(new Item("portatil", 3.5,false,true));
 
-        south.addItem(new Item("mochila", 3.2,true));
+        south.addItem(new Item("movil", 0.5,true,true));
+        south.addItem(new Item("telefono", 2.2,true,true));
+        south.addItem(new Item("usb", 0.02,true,false));
+        south.addItem(new Item("mando", 0.82,true,false));
+ 
+        west.addItem(new Item("television", 14,false,true));
+        west.addItem(new Item("dvd", 3.8,true,true));
+        west.addItem(new Item("proyector", 6.2,true,true));
+        west.addItem(new Item("cables", 14,false,false));
 
-        west.addItem(new Item("tronco", 14,false));
-        west.addItem(new Item("extintor", 9,true));
-
-        east.addItem(new Item("botella", 2,true));
-        east.addItem(new Item("armario", 36.2,false));       
+        east.addItem(new Item("altavoces", 8.8,true,true));
+        east.addItem(new Item("amplificador", 9.6,true,true));
+        east.addItem(new Item("etapa", 3.6,true,false));
+        
+        north.addItem(new Item("router", 2,true,true));
+        north.addItem(new Item("switch", 3.5,true,true));
+        north.addItem(new Item("usbWifi", 0.09,true,false));
+              
 
         player.setCurrentRoom(central);
     }
@@ -104,7 +117,7 @@ public class Game
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println("Type 'ayuda' if you need help.");
         System.out.println();
         player.printLocationInfo();
     }
@@ -151,6 +164,9 @@ public class Game
         else if (commandWord == Option.DROP){
             player.drop(command);
         }
+        else if (commandWord == Option.ENCENDER){
+           player.ligtherOn(command);
+        }
         return wantToQuit;
     }
 
@@ -183,6 +199,7 @@ public class Game
         }
         else {
             return true;  // signal that we want to quit
+      
         }
     }
 
